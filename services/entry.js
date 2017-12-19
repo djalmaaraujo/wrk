@@ -1,22 +1,5 @@
-const Conf = require('conf')
-
-const defaults = {
-  entries: [
-    {
-      when: 1512843286890,
-      description: "Paired with Rodolfo to work on the CLI"
-    },
-    {
-      when: 1513707029231,
-      description: "Created a new feature for XYZ project"
-    }
-  ]
-}
-
-const config = new Conf({
-  projectName: `wrklogger${process.env.NODE_ENV === 'test' ? 'test' : ''}`,
-  defaults: defaults
-})
+const config = require('./config')
+const defaults = require('../test/fixtures/entries')
 
 module.exports = {
   index() {
