@@ -12,21 +12,41 @@ const createEntry = (description) => {
   })
 }
 
+const defaultLog = () => {
+  log('')
+  return log(`${chalk.gray('OR')} ${chalk.bold.yellow('wrk')} ${chalk.yellow('-h')} ${chalk.gray('for all options.')}`)
+}
+
+const listEntries = async () => {
+  const entries = await EntryService.index()
+  const columns = columnify(entries, { minWidth: 10 })
+
+  log('Your recent entries:')
+  log('')
+  log(columns)
+  log('')
+  log(`${chalk.gray('Type:')} ${chalk.bold.yellow('wrk')} ${chalk.yellow('your new report message')} ${chalk.gray('to add a new entry')}`)
+  defaultLog()
+}
+
 module.exports = {
   async list(entryDescription, opts) {
     if (!isDefaultSadeObj(entryDescription)) {
-      createEntry([entryDescription, opts._[0]].join(' '))
+      createEntry([entryDescription, opts._.join(' ')].join(' '))
     }
 
-    log('Your recent entries:')
 
-    const entries = await EntryService.index()
-    const columns = columnify(entries, { minWidth: 10 })
+    listEntries()
+  },
 
-    log('')
-    log(columns)
-    log('')
-    log(`${chalk.gray('Type:')} ${chalk.bold.yellow('wrk')} ${chalk.yellow('your new report message')} ${chalk.gray('to add a new entry')}`)
-    log(`${chalk.gray('OR')} ${chalk.bold.yellow('wrk')} ${chalk.yellow('-h')} ${chalk.gray('for all options.')}`)
+  async create(entryDescription, opts) {
+    if (isDefaultSadeObj(entryDescription)) {
+      log(`${chalk.bold.red('[!]')} Please, type something...`)
+      return defaultLog()
+    }
+
+    createEntry([entryDescription, opts._.join(' ')].join(' '))
+
+    listEntries()
   }
 }

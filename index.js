@@ -24,8 +24,16 @@ layout.then(() => {
   prog
     .command('e <entry>')
     .describe('List your entries')
-    .option('-e, --entry')
+    .option('e, --entries')
     .action(commandEntry.list)
+
+  prog
+    .command('add <entry>')
+    .describe('Add a new entry')
+    .example('add Did something yesterday')
+    .example('--add Did something yesterday')
+    .option('add, --add')
+    .action(commandEntry.create)
 
     prog.parse(process.argv)
 })
