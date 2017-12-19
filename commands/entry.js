@@ -25,7 +25,7 @@ const listEntries = async () => {
   log('')
   log(columns)
   log('')
-  log(`${chalk.gray('Type:')} ${chalk.bold.yellow('wrk')} ${chalk.yellow('your new report message')} ${chalk.gray('to add a new entry')}`)
+  log(`${chalk.gray('Type:')} ${chalk.bold.yellow('wrk a')} ${chalk.yellow('\'your new report message\'')} ${chalk.gray('to add a new entry')}`)
   defaultLog()
 }
 
@@ -34,7 +34,6 @@ module.exports = {
     if (!isDefaultSadeObj(entryDescription)) {
       createEntry([entryDescription, opts._.join(' ')].join(' '))
     }
-
 
     listEntries()
   },
