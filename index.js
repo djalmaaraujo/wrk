@@ -7,6 +7,7 @@ const clear = require('clear')
 const columnify = require('columnify')
 const EntryService = require('./services/entry')
 
+const isDefaultSadeObj = (x) => x.hasOwnProperty('_')
 const layout = new Promise((rs, rj) => {
   figlet('WrK   logger', (err, data) => {
     if (err) rj(err)
@@ -17,6 +18,13 @@ const layout = new Promise((rs, rj) => {
   })
 })
 
+const createEntry = (description) => {
+  return EntryService.create({
+    when: new Date().getTime(),
+    description
+  })
+}
+
 layout.then(() => {
   prog.version(version)
 
@@ -24,7 +32,11 @@ layout.then(() => {
     .command('e <entry>')
     .describe('List your entries')
     .option('-e, --entry')
-    .action(async (entry, opts) => {
+    .action(async (entryDescription, opts) => {
+      if (!isDefaultSadeObj(entryDescription)) {
+        createEntry([entryDescription, opts._[0]].join(' '))
+      }
+
       console.log('Your recent entries:')
 
       const entries = await EntryService.index()
