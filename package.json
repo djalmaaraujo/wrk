@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A standup logger",
   "main": "index.js",
+  "bin": "index.js",
   "scripts": {
     "test": "ava"
   },
