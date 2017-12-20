@@ -26,9 +26,9 @@ const parseItemsTime = (items) => {
   })
 }
 
-const noEntriesMessage = () => {
+const noEntriesToDisplay = (action = 'list') => {
   l.blank()
-  l.warning('You don\'t have any entries to list. Let\'s add one?')
+  l.warning(`You don't have any entries to ${action}. Let's add one?`)
   l.blank()
   l.docsNewEntry()
   return l.default()
@@ -38,7 +38,7 @@ const listEntries = async () => {
   const entries = await EntryService.index({orderByDay: true})
   const entryKeys = Object.keys(entries)
 
-  if (entryKeys.length === 0) return noEntriesMessage()
+  if (entryKeys.length === 0) return noEntriesToDisplay()
 
   l.log('Your recent entries:')
   l.blank()
@@ -107,5 +107,47 @@ module.exports = {
         l.default()
       }
     })
+  },
+
+  async destroy(arg, opts) {
+    const entries = await EntryService.index({ orderByDay: true })
+    const entryKeys = Object.keys(entries)
+
+    if (entryKeys.length === 0) return noEntriesToDisplay('remove')
+
+    const selectEntryByday = (entries, day) => {
+      inquirer.prompt([{
+        type: 'rawlist',
+        name: 'entry',
+        message: "Type the number of the entry to delete:",
+        choices: parseItemsTime(entries[day]).map((i, index) => {
+          return {
+            name: `${i.when} - ${i.description}`,
+            value: i.description // should be the ID in the future
+          }
+        })
+      }]).then(async answers => {
+        // We dont have ID's for entries yet
+        // I will match the description
+        // If 2 matches, the first index in array will be deleted.
+        // We need ID's!
+
+        const allEntries = await EntryService.index()
+        const match = allEntries.find((i) => i.description === answers.entry)
+
+        if (match) {
+          const deleted = await EntryService.destroy(match)
+        }
+
+        listEntries()
+      })
+    }
+
+    inquirer.prompt([{
+      type: 'rawlist',
+      name: 'day',
+      message: "Select a day first:",
+      choices: entryKeys
+    }]).then(answers => selectEntryByday(entries, answers.day))
   }
 }

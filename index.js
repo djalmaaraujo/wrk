@@ -35,6 +35,11 @@ layout.then(() => {
     .action(commandEntry.create)
 
   prog
+    .command('remove')
+    .describe('Remove an entry')
+    .action(commandEntry.destroy)
+
+  prog
     .command('clean')
     .describe('Deletes all entries. Be careful, there\'s trash can here')
     .action(commandEntry.clean)
