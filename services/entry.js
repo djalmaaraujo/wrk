@@ -1,6 +1,8 @@
 const config = require('./config')
 const defaults = require('../test/fixtures/entries')
 
+const groupByDate = () => {}
+
 module.exports = {
   index() {
     return Promise.resolve(config.get('entries'))
