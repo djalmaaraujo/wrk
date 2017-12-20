@@ -1,14 +1,15 @@
 const path = require('path')
 const Conf = require('conf')
+const isDev = require('../utils/isDev')
 
 const defaults = require('../test/fixtures/entries')
-const isDev = (['test', 'development'].indexOf(process.env.NODE_ENV.toLowerCase()) > -1)
 const configParams = {
-  defaults: (process.env.NODE_ENV === 'test') ? defaults : {}
+  projectName: `wrklogger`,
+  defaults: (isDev) ? defaults : {}
 }
 
 if (isDev) {
-  configParams.projectName = `wrklogger${process.env.NODE_ENV === 'test' ? 'test' : ''}`
+  configParams.projectName = `wrklogger${isDev ? 'test' : ''}`
   configParams.cwd = path.resolve(__dirname, '../test/tmp')
 }
 

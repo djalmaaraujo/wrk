@@ -6,19 +6,17 @@ const inquirer = require('inquirer')
 
 // Modules
 const EntryService = require('../services/entry')
+const l = require('../utils/logger')
 
 // Utility
 const isDefaultSadeObj = (x) => x.hasOwnProperty('_')
-const log = (x) => console.log(x)
-const logWarning = (x) => log(`${chalk.bold.red('[!]')} ${x}`)
-const logNewLine = () => log('')
-const logNewEntryText = () => log(`${chalk.gray('Type:')} ${chalk.bold.yellow('wrk a')} ${chalk.yellow('\'your new report message\'')} ${chalk.gray('to add a new entry')}`)
 const createEntry = (description) => {
   return EntryService.create({
     when: new Date().getTime(),
     description
   })
 }
+
 const parseItemsTime = (items) => {
   return items.map((item) => {
     item.when = moment(new Date(item.when)).format('HH:mm').replace(':','h')
@@ -27,34 +25,32 @@ const parseItemsTime = (items) => {
   })
 }
 
-const defaultLog = () => {
-  logNewLine()
-  return log(`${chalk.gray('OR')} ${chalk.bold.yellow('wrk')} ${chalk.yellow('-h')} ${chalk.gray('for all options.')}`)
+const noEntriesMessage = () => {
+  l.blank()
+  l.warning('You don\'t have any entries to list.')
+  return l.default()
 }
 
 const listEntries = async () => {
   const entries = await EntryService.index({orderByDay: true})
   const entryKeys = Object.keys(entries)
 
-  if (entryKeys.length === 0) {
-    logNewLine()
-    logWarning('You don\'t have any entries to list.')
-    return defaultLog()
-  }
+  if (entryKeys.length === 0) return noEntriesMessage()
 
-  log('Your recent entries:')
-  logNewLine()
+  l.log('Your recent entries:')
+  l.blank()
 
   entryKeys.map((item) => {
-    log(chalk.bold.yellow(item))
-    logNewLine()
     const columns = columnify(parseItemsTime(entries[item]), { minWidth: 10 })
-    log(columns)
-    logNewLine()
+
+    l.log(chalk.bold.yellow(item))
+    l.blank()
+    l.log(columns)
+    l.blank()
   })
 
-  logNewEntryText()
-  defaultLog()
+  l.docsNewEntry()
+  l.default()
 }
 
 module.exports = {
@@ -68,8 +64,8 @@ module.exports = {
 
   async create(entryDescription, opts) {
     if (isDefaultSadeObj(entryDescription)) {
-      logWarning('Please, type something...')
-      return defaultLog()
+      l.warning('Please, type something...')
+      return l.default()
     }
 
     createEntry([entryDescription, opts._.join(' ')].join(' '))
@@ -107,13 +103,13 @@ module.exports = {
       if ((answers.delete === true) && (answers.confirm === 'YES')) {
         const deleted = await EntryService.clean()
 
-        if (!deleted) return logWarning('Something went wrong, try again.')
+        if (!deleted) return l.warning('Something went wrong, try again.')
 
-        logNewLine()
-        logWarning('You deleted all your entries')
-        logNewLine()
-        logNewEntryText()
-        defaultLog()
+        l.blank()
+        l.warning('You deleted all your entries')
+        l.blank()
+        l.docsNewEntry()
+        l.default()
       }
     })
   }

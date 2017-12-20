@@ -16,7 +16,7 @@ module.exports = {
   },
 
   create(entryParams) {
-    const oldState = config.get('entries')
+    const oldState = config.get('entries') || []
     oldState.push(entryParams)
     config.set('entries', oldState)
 
