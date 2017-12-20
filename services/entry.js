@@ -40,5 +40,11 @@ module.exports = {
 
   reset() {
     config.set('entries', defaults.entries)
+  },
+
+  clean() {
+    config.set('entries', [])
+
+    return Promise.resolve(true)
   }
 }

@@ -63,7 +63,7 @@ test.serial('Get list of entries ordered by day', async t => {
 
 test.serial('Insert a new entry', async t => {
   const value = await EntryService.create(newSampleEntry)
-  t.deepEqual(newSampleEntry, value, 'New entry not created')
+  t.deepEqual(newSampleEntry, value, 'New entry created')
 })
 
 test.serial('Return list updated after add a new entry', async t => {
@@ -77,7 +77,7 @@ test.serial('Return list updated after add a new entry', async t => {
   const updatedList = await EntryService.index()
 
   t.is(oldList.length + 1, updatedList.length, 'Entries list has one more item')
-  t.deepEqual(updatedList.pop(), newEntry, 'New entry was not added to the entries list')
+  t.deepEqual(updatedList.pop(), newEntry, 'New entry added to the entries list')
 })
 
 test.serial('Erase an item from the list', async t => {
@@ -92,4 +92,16 @@ test.serial('Erase an item from the list', async t => {
 
   t.is(deleted, true, 'Item was removed')
   t.is(oldList.length - 1, updatedList.length, 'Entries list has one less item')
+})
+
+test.serial('Erase all entries', async t => {
+  const oldList = await EntryService.index()
+
+  t.is(oldList.length, 4)
+
+  const deleted = await EntryService.clean()
+  const updatedList = await EntryService.index()
+
+  t.is(deleted, true, 'All items removed')
+  t.is(updatedList.length, 0, 'All entries deleted')
 })

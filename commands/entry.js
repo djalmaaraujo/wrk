@@ -37,6 +37,7 @@ const listEntries = async () => {
   const entryKeys = Object.keys(entries)
 
   if (entryKeys.length === 0) {
+    logNewLine()
     logWarning('You don\'t have any entries to list.')
     return defaultLog()
   }
