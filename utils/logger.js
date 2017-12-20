@@ -12,12 +12,10 @@ module.exports = {
   },
 
   docsNewEntry() {
-    return this.l(`${chalk.gray('Type:')} ${chalk.bold.yellow('wrk a')} ${chalk.yellow('\'your new report message\'')} ${chalk.gray('to add a new entry')}`)
+    return this.l(`${chalk.gray('Type:')} ${chalk.bold.yellow('wrk add')} ${chalk.yellow('\'your new report message\'')} ${chalk.gray('to add a new entry')}`)
   },
 
   default() {
-    this.blank()
-
     return this.l(`${chalk.gray('OR')} ${chalk.bold.yellow('wrk')} ${chalk.yellow('-h')} ${chalk.gray('for all options.')}`)
   }
 }

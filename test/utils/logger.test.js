@@ -19,7 +19,7 @@ test('blank', t => {
 })
 
 test('docsNewEntry', t => {
-  const expectedString = `${chalk.gray('Type:')} ${chalk.bold.yellow('wrk a')} ${chalk.yellow('\'your new report message\'')} ${chalk.gray('to add a new entry')}`
+  const expectedString = `${chalk.gray('Type:')} ${chalk.bold.yellow('wrk add')} ${chalk.yellow('\'your new report message\'')} ${chalk.gray('to add a new entry')}`
 
   t.deepEqual(Logger.docsNewEntry(), expectedString, 'docsNewEntry returns some default instructions on how to add a new entry')
 })

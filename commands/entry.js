@@ -3,6 +3,7 @@ const columnify = require('columnify')
 const chalk = require('chalk')
 const moment = require('moment')
 const inquirer = require('inquirer')
+const clear = require('clear')
 
 // Modules
 const EntryService = require('../services/entry')
@@ -27,7 +28,9 @@ const parseItemsTime = (items) => {
 
 const noEntriesMessage = () => {
   l.blank()
-  l.warning('You don\'t have any entries to list.')
+  l.warning('You don\'t have any entries to list. Let\'s add one?')
+  l.blank()
+  l.docsNewEntry()
   return l.default()
 }
 
@@ -54,23 +57,17 @@ const listEntries = async () => {
 }
 
 module.exports = {
-  async list(entryDescription, opts) {
-    if (!isDefaultSadeObj(entryDescription)) {
-      createEntry([entryDescription, opts._.join(' ')].join(' '))
-    }
-
-    listEntries()
-  },
-
+  async list(entryDescription, opts) { listEntries() },
   async create(entryDescription, opts) {
-    if (isDefaultSadeObj(entryDescription)) {
-      l.warning('Please, type something...')
-      return l.default()
-    }
-
-    createEntry([entryDescription, opts._.join(' ')].join(' '))
-
-    listEntries()
+    inquirer.prompt([{
+      type: 'input',
+      name: 'entry',
+      message: "Type your entry description:"
+    }]).then(answers => {
+      createEntry(answers.entry)
+      l.blank()
+      listEntries()
+    });
   },
 
   async clean(arg, opts) {
@@ -92,9 +89,7 @@ module.exports = {
           return answers.delete
         },
         validate: function (value) {
-          if (value === 'YES') {
-            return true
-          }
+          if (value === 'YES') return true
 
           return 'Please enter YES or press ctrl+c to cancel'
         }

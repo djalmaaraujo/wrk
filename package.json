@@ -1,9 +1,13 @@
 {
   "name": "wrklog",
+  "author": "Djalma Araujo",
+  "license": "MIT",
   "version": "1.0.0",
   "description": "A standup logger",
   "main": "index.js",
-  "bin": "index.js",
+  "bin": {
+    "wrk": "index.js"
+  },
   "scripts": {
     "test": "NODE_ENV=test ava"
   },
@@ -13,8 +17,6 @@
     "log",
     "daily"
   ],
-  "author": "Djalma Araujo",
-  "license": "MIT",
   "devDependencies": {
     "ava": "^0.20.0"
   },
@@ -28,7 +30,7 @@
     "listr": "^0.13.0",
     "lodash": "^4.17.4",
     "moment": "^2.20.1",
-    "sade": "^1.0.0"
+    "sade": "^1.1.1"
   },
   "ava": {
     "files": [
