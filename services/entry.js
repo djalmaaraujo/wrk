@@ -1,11 +1,18 @@
 const config = require('./config')
 const defaults = require('../test/fixtures/entries')
-
-const groupByDate = () => {}
+const groupBy = require('lodash/groupBy')
+const moment = require('moment')
+const DEFAULT_FORMAT = 'Y/M/DD'
 
 module.exports = {
-  index() {
-    return Promise.resolve(config.get('entries'))
+  index(options = {}) {
+    let entries = config.get('entries')
+
+    if (options.orderByDay) {
+      entries = groupBy(entries, (entry) => moment(new Date(entry.when)).format(DEFAULT_FORMAT))
+    }
+
+    return Promise.resolve(entries)
   },
 
   create(entryParams) {
