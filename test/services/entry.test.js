@@ -1,6 +1,6 @@
 // Dependencies
 import test from 'ava'
-import EntryService from '../services/entry.js'
+import EntryService from '../../services/entry.js'
 
 // Setup
 const sampleEntries = [

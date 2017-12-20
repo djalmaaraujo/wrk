@@ -37,5 +37,13 @@ layout.then(() => {
     .option('a, --add')
     .action(commandEntry.create)
 
+  prog
+    .command('clean')
+    .describe('Deletes all entries. Be careful, there\'s trash can here')
+    .example('clean')
+    .example('--clean')
+    .option('--clean')
+    .action(commandEntry.clean)
+
     prog.parse(process.argv)
 })
