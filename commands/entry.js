@@ -19,7 +19,7 @@ const createEntry = (description) => {
 }
 const parseItemsTime = (items) => {
   return items.map((item) => {
-    item.when = moment(new Date(item.when)).format('HH:mm')
+    item.when = moment(new Date(item.when)).format('HH:mm').replace(':','h')
 
     return item
   })
