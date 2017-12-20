@@ -109,7 +109,9 @@ module.exports = {
 
         if (!deleted) return logWarning('Something went wrong, try again.')
 
+        logNewLine()
         logWarning('You deleted all your entries')
+        logNewLine()
         logNewEntryText()
         defaultLog()
       }
