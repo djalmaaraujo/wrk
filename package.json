@@ -2,7 +2,7 @@
   "name": "wrklog",
   "author": "Djalma Araujo",
   "license": "MIT",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A standup logger",
   "main": "index.js",
   "bin": {
