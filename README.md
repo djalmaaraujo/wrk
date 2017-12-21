@@ -4,7 +4,8 @@
 
 > WrK Logger is a daily logger for tasks/activities. Useful to record standup notes/meetings/etc.
 
-![demo](http://g.recordit.co/apNxRXUI4J.gif)
+## Demo
+![demo](http://g.recordit.co/fKeR1uxZMX.gif)
 
 ## Installation
 
