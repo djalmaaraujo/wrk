@@ -6,23 +6,25 @@ const figlet = require('figlet')
 const chalk = require('chalk')
 const clear = require('clear')
 
-// CLI Updates
-const updateNotifier = require('update-notifier')
-const pkg = require('./package.json')
-
-updateNotifier({ pkg, isGlobal: true }).notify()
-
 // Modules
 const version = require('./package.json').version
-const commandEntry = require('./commands/entry')
 
-const log = (x) => console.log(x)
+// Commands
+const commandRemove = require('./commands/entry.remove')
+const commandClean = require('./commands/entry.clean')
+const commandList = require('./commands/entry.list')
+const commandCreate = require('./commands/entry.create')
+
+// Update
+require('./services/updater')()
+
 const layout = new Promise((rs, rj) => {
+  clear()
+
   figlet('WrK   logger', (err, data) => {
     if (err) rj(err)
 
-    clear()
-    log(chalk.yellow(data))
+    console.log(chalk.yellow(data))
     rs(true)
   })
 })
@@ -33,22 +35,22 @@ layout.then(() => {
   prog
     .command('list', '', { default: true })
     .describe('List your entries')
-    .action(commandEntry.list)
+    .action(commandList)
 
   prog
     .command('add')
     .describe('Add a new entry')
-    .action(commandEntry.create)
+    .action(commandCreate)
 
   prog
     .command('remove')
     .describe('Remove an entry')
-    .action(commandEntry.destroy)
+    .action(commandRemove)
 
   prog
     .command('clean')
     .describe('Deletes all entries. Be careful, there\'s NO trash can here')
-    .action(commandEntry.clean)
+    .action(commandClean)
 
     prog.parse(process.argv)
 })
