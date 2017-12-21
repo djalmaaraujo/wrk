@@ -2,7 +2,8 @@
   "name": "wrklog",
   "author": "Djalma Araujo",
   "license": "MIT",
-  "version": "1.1.0",
+  "version": "1.2.0",
+  "isGlobal": true,
   "description": "A standup logger",
   "main": "index.js",
   "bin": {
@@ -30,7 +31,8 @@
     "listr": "^0.13.0",
     "lodash": "^4.17.4",
     "moment": "^2.20.1",
-    "sade": "^1.1.1"
+    "sade": "^1.1.1",
+    "update-notifier": "^2.3.0"
   },
   "ava": {
     "files": [

@@ -6,6 +6,12 @@ const figlet = require('figlet')
 const chalk = require('chalk')
 const clear = require('clear')
 
+// CLI Updates
+const updateNotifier = require('update-notifier')
+const pkg = require('./package.json')
+
+updateNotifier({ pkg, isGlobal: true }).notify()
+
 // Modules
 const version = require('./package.json').version
 const commandEntry = require('./commands/entry')
