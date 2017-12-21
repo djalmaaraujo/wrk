@@ -6,6 +6,29 @@
 
 ![demo](http://g.recordit.co/apNxRXUI4J.gif)
 
+## Installation
+
+***NPM:***
+
+```
+$ npm i -g wrklog
+```
+
+***Yarn:***
+
+```
+$ yarn global add wrklog
+```
+
+## Usage
+ - `wrk list` or `wrk`: List your entries
+
+ - `wrk add`: Add a new entry
+
+ - `wrk remove`: Remove an entry
+
+ - `wrk clean`: Deletes all entries. Be careful, there\'s trash can here
+
 ## License
 
 MIT
