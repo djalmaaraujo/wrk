@@ -12,7 +12,7 @@ module.exports = {
   },
 
   docsNewEntry() {
-    return this.l(`${chalk.gray('Type:')} ${chalk.bold.yellow('wrk add')} ${chalk.yellow('\'your new report message\'')} ${chalk.gray('to add a new entry')}`)
+    return this.l(`${chalk.gray('Type:')} ${chalk.bold.yellow('wrk add')} ${chalk.gray('to add a new entry')}`)
   },
 
   default() {
