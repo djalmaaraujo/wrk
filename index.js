@@ -41,7 +41,7 @@ layout.then(() => {
 
   prog
     .command('clean')
-    .describe('Deletes all entries. Be careful, there\'s trash can here')
+    .describe('Deletes all entries. Be careful, there\'s NO trash can here')
     .action(commandEntry.clean)
 
     prog.parse(process.argv)

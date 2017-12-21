@@ -27,7 +27,7 @@ $ yarn global add wrklog
 
  - `wrk remove`: Remove an entry
 
- - `wrk clean`: Deletes all entries. Be careful, there\'s trash can here
+ - `wrk clean`: Deletes all entries. Be careful, there's NO trash can here
 
 ## License
 
