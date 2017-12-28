@@ -10,7 +10,7 @@
     "wrk": "index.js"
   },
   "scripts": {
-    "test": "NODE_ENV=test ava"
+    "test": "node test/cleanup.js && NODE_ENV=test ava"
   },
   "keywords": [
     "standup",
