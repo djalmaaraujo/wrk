@@ -6,7 +6,7 @@ const EntryService = require('../services/entry')
 const l = require('../utils/logger')
 
 module.exports = async (arg, opts) => {
-  inquirer.prompt([
+  return inquirer.prompt([
     {
       type: 'list',
       name: 'delete',

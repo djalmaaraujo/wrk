@@ -9,8 +9,10 @@ const configParams = {
 }
 
 if (isDev) {
-  configParams.projectName = `wrklogger${isDev ? 'test' : ''}`
-  configParams.cwd = path.resolve(__dirname, '../test/tmp')
+  const randConfig = `test_${Math.random().toString().replace('.', '_')}`
+
+  configParams.projectName = `wrklogger${isDev ? randConfig : ''}`
+  configParams.cwd = path.resolve(__dirname, `../test/tmp/${randConfig}`)
 }
 
 module.exports = new Conf(configParams)

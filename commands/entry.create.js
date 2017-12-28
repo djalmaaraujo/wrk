@@ -11,7 +11,7 @@ const l = require('../utils/logger')
 const commandList = require('./entry.list')
 
 module.exports = async (noparam, opts) => {
-  inquirer.prompt([{
+  return inquirer.prompt([{
     type: 'input',
     name: 'entry',
     message: "Type your entry description:"
