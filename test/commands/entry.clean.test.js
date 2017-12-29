@@ -10,7 +10,7 @@ const bkpInquirer = Object.create(inquirer.prompt)
 test.beforeEach(t => EntryService.reset())
 
 test.serial('Clean all entries if user confirms with YES', async t => {
-  inquirer.prompt = (opts) => { return Promise.resolve({ delete: true, confirm: 'YES' }) }
+  inquirer.prompt = (opts) => Promise.resolve({ delete: true, confirm: 'YES' })
 
   const initEntriesAmount = (await EntryService.index()).length
 
@@ -24,10 +24,10 @@ test.serial('Clean all entries if user confirms with YES', async t => {
 })
 
 test.serial('Dont clean entries if user dont answer YES', async t => {
-  inquirer.prompt = (opts) => { return Promise.resolve({
+  inquirer.prompt = (opts) => Promise.resolve({
     delete: true,
     confirm: 'SCOOBY'
-  })}
+  })
 
   const initEntriesAmount = (await EntryService.index()).length
 
@@ -40,3 +40,4 @@ test.serial('Dont clean entries if user dont answer YES', async t => {
   t.deepEqual(afterEntriesAmount, initEntriesAmount, 'All entries were gone');
 })
 
+test.afterEach(t => inquirer.prompt = bkpInquirer)

@@ -47,7 +47,7 @@ module.exports = async (arg, opts) => {
 
   if (entryKeys.length === 0) return noEntriesToDisplay('remove')
 
-  inquirer.prompt([{
+  return inquirer.prompt([{
     type: 'rawlist',
     name: 'day',
     message: "Select a day first:",

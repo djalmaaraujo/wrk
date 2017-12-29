@@ -2,13 +2,12 @@ import test from 'ava'
 import CmdCreate from '../../commands/entry.create'
 import inquirer from 'inquirer'
 import EntryService from '../../services/entry.js'
-import Cleanup from '../cleanup'
 
 // Mock
 const bkpInquirer = Object.create(inquirer.prompt)
 
 test.beforeEach(t => {
-  inquirer.prompt = (opts) => { return Promise.resolve({entry: 'My simple description'}) }
+  inquirer.prompt = (opts) => Promise.resolve({entry: 'My simple description'})
   EntryService.reset()
 })
 
@@ -24,6 +23,4 @@ test.serial('Command Create', async t => {
   t.deepEqual(initEntriesAmount + 1, afterEntriesAmount, 'New entry added successfully');
 })
 
-test.afterEach(t => {
-  inquirer.prompt = bkpInquirer
-})
+test.afterEach(t => inquirer.prompt = bkpInquirer)
