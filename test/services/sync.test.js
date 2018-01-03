@@ -5,6 +5,8 @@ import Sync from '../../services/sync'
 import userHome from 'user-home'
 import fs from 'fs'
 import path from 'path'
+import sinon from 'sinon'
+import GitHubApi from 'github'
 
 const setTokenFile = async (token) => {
   const filePath = path.join(userHome, `.wrklogger${process.env.NODE_ENV}`)
@@ -52,4 +54,31 @@ test.serial('#setToken writes a token into the .wrklogger user path file', async
 
   await Sync.setToken('aysiduya18azxlz9231')
   t.deepEqual('aysiduya18azxlz9231', await Sync.getToken(), 'New token is set to file');
+})
+
+test.serial('#checkToken throws an error if no token is found', async t => {
+  await Sync.setToken()
+
+  const error = await t.throws(Sync.checkToken())
+  t.is(error.message, 'Token authentication requires a token to be set')
+})
+
+test.serial('#checkToken returns falsy for what ever token is', async t => {
+  await Sync.setToken('XXX')
+
+  const error = await t.throws(Sync.checkToken());
+
+  t.is(error.message, '401')
+})
+
+test.serial('#checkToken returns true for a valid token', async t => {
+  await Sync.setToken('XXX')
+
+  const github = new GitHubApi()
+  const ghBkp = Object.create(github.users)
+  github.users = { get(x,cb) { return cb(null, {status: 200}) } }
+
+  t.truthy(await Sync.checkToken(github), 'Token is valid')
+
+  github.users = ghBkp
 })
