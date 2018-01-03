@@ -24,7 +24,12 @@ module.exports = async (arg, opts) => {
     return inquirer.prompt([{
       type: 'password',
       name: 'token',
-      message: "Paste your generated token here:"
+      message: "Paste your generated token here:",
+      validate(token) {
+        if (!token) return 'Insert a valid token'
+
+        return true
+      }
     }]).then(async answers => {
       await Sync.setToken(answers.token)
 
