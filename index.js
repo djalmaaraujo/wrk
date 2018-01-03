@@ -14,6 +14,7 @@ const commandRemove = require('./commands/entry.remove')
 const commandClean = require('./commands/entry.clean')
 const commandList = require('./commands/entry.list')
 const commandCreate = require('./commands/entry.create')
+const commandSync = require('./commands/sync')
 
 // Update
 require('./services/updater')()
@@ -49,8 +50,13 @@ layout.then(() => {
 
   prog
     .command('clean')
-    .describe('Deletes all entries. Be careful, there\'s NO trash can here')
+    .describe('Deletes all entries, be careful, there\'s NO trash bin here')
     .action(commandClean)
+
+  prog
+    .command('sync')
+    .describe('Setup a Github Personal access token for syncing your entries with Github Gists API (Privately)')
+    .action(commandSync)
 
     prog.parse(process.argv)
 })

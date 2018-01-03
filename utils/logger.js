@@ -8,7 +8,11 @@ module.exports = {
   blank() { return this.l('') },
 
   warning(x) {
-    return this.l(`${chalk.bold.red('[!]')} ${x}`)
+    return this.l(`${chalk.bold.red('🛑 ')} ${x}`)
+  },
+
+  success(x) {
+    return this.l(`${chalk.bold.green('✅ ')} ${x}`)
   },
 
   docsNewEntry() {

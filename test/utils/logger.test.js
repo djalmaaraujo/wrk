@@ -31,7 +31,13 @@ test('default', t => {
 })
 
 test('warning', t => {
-  const expectedString = `${chalk.bold.red('[!]')} pay attention`
+  const expectedString = `${chalk.bold.red('🛑 ')} pay attention`
 
   t.deepEqual(Logger.warning('pay attention'), expectedString, 'warning returns a red exclamation + test')
+})
+
+test('success', t => {
+  const expectedString = `${chalk.bold.green('✅ ')} pay attention`
+
+  t.deepEqual(Logger.success('pay attention'), expectedString, 'warning returns a red exclamation + test')
 })
