@@ -21,6 +21,12 @@ test('Sync service exists', async t => {
   t.truthy(is.object(Sync), 'Sync is an object')
 })
 
+test.serial('#userFilePath', t => {
+  const uHome = path.join(userHome, `.wrklogger${process.env.NODE_ENV}`)
+
+  t.deepEqual(Sync.userFilePath(), uHome, 'Returns user file config path')
+})
+
 test.serial('#getToken returns token from .wrklogger user path file', async t => {
   let token;
 
@@ -36,4 +42,14 @@ test.serial('#getToken returns token from .wrklogger user path file', async t =>
   token = await Sync.getToken()
 
   t.deepEqual('654321', token, 'Token comes from user home dir');
+})
+
+test.serial('#setToken writes a token into the .wrklogger user path file', async t => {
+  t.falsy(await Sync.getToken(), 'Token is null at first')
+
+  await Sync.setToken('18273918273981723')
+  t.deepEqual('18273918273981723', await Sync.getToken(), 'New token is set to file');
+
+  await Sync.setToken('aysiduya18azxlz9231')
+  t.deepEqual('aysiduya18azxlz9231', await Sync.getToken(), 'New token is set to file');
 })

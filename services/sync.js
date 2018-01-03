@@ -3,15 +3,21 @@ const path = require('path')
 const userHome = require('user-home')
 
 module.exports = {
-  async getToken() {
-    const filePath = path.join(userHome, `.wrklogger${process.env.NODE_ENV}`)
+  userFilePath() {
+    return path.join(userHome, `.wrklogger${process.env.NODE_ENV}`)
+  },
 
+  async getToken() {
     return new Promise((res, rej) => {
-      fs.readFile(filePath, 'utf8', (err, data) => {
+      fs.readFile(this.userFilePath(), 'utf8', (err, data) => {
         if (err) rej(err)
 
         res(data)
       })
     })
+  },
+
+  async setToken(token) {
+    return new Promise((res, rej) => fs.writeFile(this.userFilePath(), token || '', res))
   }
 }
