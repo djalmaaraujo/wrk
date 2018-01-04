@@ -1,5 +1,7 @@
 // Dependencies
 const inquirer = require('inquirer')
+const chalk = require('chalk')
+const ora = require('ora')
 
 // Utils
 const opn = require('../utils/opener')
@@ -25,10 +27,22 @@ module.exports = async (arg, opts) => {
       type: 'password',
       name: 'token',
       message: "Paste your generated token here:",
-      validate(token) {
-        if (!token) return 'Insert a valid token'
+      async validate(token) {
+        const spinner = ora('Verifying your token against Github API...').start()
 
-        return true
+        await Sync.setToken(token)
+
+        try {
+          const isValid = await Sync.checkToken()
+          spinner.stop()
+
+          return isValid
+        } catch(err) {
+
+          spinner.stop()
+          return `${chalk.bold.red('🛑 ')} Token invalid. Github returned bad credentials status code. Provide a valid personal access token`
+        }
+
       }
     }]).then(async answers => {
       await Sync.setToken(answers.token)

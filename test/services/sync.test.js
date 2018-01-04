@@ -5,7 +5,6 @@ import Sync from '../../services/sync'
 import userHome from 'user-home'
 import fs from 'fs'
 import path from 'path'
-import sinon from 'sinon'
 import GitHubApi from 'github'
 
 const setTokenFile = async (token) => {
