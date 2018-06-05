@@ -61,7 +61,7 @@ layout.then(() => {
     .action(commandClean)
 
   prog
-    .command('sync')
+    .command('sync [WIP]')
     .describe('Setup a Github Personal access token for syncing your entries with Github Gists API (Privately)')
     .action(commandSync)
 
