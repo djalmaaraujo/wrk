@@ -49,7 +49,7 @@ layout.then(() => {
     .describe('Remove an entry')
     .action(commandRemove)
 
-    prog
+  prog
     .command('edit')
     .describe('Edit an entry description')
     .action(commandEdit)
