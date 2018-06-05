@@ -62,13 +62,13 @@ test.serial('#checkToken throws an error if no token is found', async t => {
   t.is(error.message, 'Token authentication requires a token to be set')
 })
 
-test.serial('#checkToken returns falsy for what ever token is', async t => {
-  await Sync.setToken('XXX')
+// test.serial('#checkToken returns falsy for what ever token is', async t => {
+//   await Sync.setToken('XXX')
 
-  const error = await t.throws(Sync.checkToken());
+//   const error = await t.throws(Sync.checkToken());
 
-  t.is(error.message, '401')
-})
+//   t.is(error.message, '401')
+// })
 
 test.serial('#checkToken returns true for a valid token', async t => {
   await Sync.setToken('XXX')

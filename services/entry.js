@@ -38,6 +38,23 @@ module.exports = {
     return Promise.resolve(true)
   },
 
+  edit(editedItem, when, description) {
+    const entryString = JSON.stringify(editedItem).toString()
+    const oldState = config.get('entries')
+
+    const newState = oldState.filter((item) => {
+      const currentString = JSON.stringify(item).toString()
+
+      if (currentString !== entryString) return item
+    })
+
+    newState.push({ when, description })
+
+    config.set('entries', newState)
+
+    return Promise.resolve(true)
+  },
+
   reset() {
     config.set('entries', defaults.entries)
   },

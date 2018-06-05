@@ -14,6 +14,7 @@ const commandRemove = require('./commands/entry.remove')
 const commandClean = require('./commands/entry.clean')
 const commandList = require('./commands/entry.list')
 const commandCreate = require('./commands/entry.create')
+const commandEdit = require('./commands/entry.edit')
 const commandSync = require('./commands/sync')
 
 // Update
@@ -47,6 +48,11 @@ layout.then(() => {
     .command('remove')
     .describe('Remove an entry')
     .action(commandRemove)
+
+    prog
+    .command('edit')
+    .describe('Edit an entry')
+    .action(commandEdit)
 
   prog
     .command('clean')

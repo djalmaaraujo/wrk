@@ -94,6 +94,26 @@ test.serial('Erase an item from the list', async t => {
   t.is(oldList.length - 1, updatedList.length, 'Entries list has one less item')
 })
 
+
+test.serial('Edit an item from the list', async t => {
+  const oldList = await EntryService.index()
+
+  t.is(oldList.length, 4)
+
+  const editedItem = oldList[0]
+  const when = new Date().getTime()
+  const newDesc = 'Changed my mind about x'
+
+  const edited = await EntryService.edit(editedItem, when, newDesc)
+  const updatedList = await EntryService.index()
+  const updatedLength = updatedList.length
+
+  t.is(edited, true, 'Item was edited')
+  t.is(oldList.length, updatedLength, 'Entries list has one item modified')
+  // t.is(updatedList[updatedLength - 1].when, when, 'Date changed')
+  t.is(updatedList[updatedLength - 1].description, newDesc, 'Description changed')
+})
+
 test.serial('Erase all entries', async t => {
   const oldList = await EntryService.index()
 

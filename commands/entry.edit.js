@@ -17,8 +17,8 @@ const selectEntryByday = (entries, day) => {
   inquirer.prompt([{
     type: 'rawlist',
     name: 'entry',
+    message: "Type the number of the entry to edit:",
     pageSize: 100,
-    message: "Type the number of the entry to delete:",
     choices: parseItemsTime(entries[day]).map((i, index) => {
       return {
         name: `${i.when} - ${i.description}`,
@@ -34,10 +34,19 @@ const selectEntryByday = (entries, day) => {
     const allEntries = await EntryService.index()
     const match = allEntries.find((i) => i.description === answers.entry)
 
-    if (match) {
-      const deleted = await EntryService.destroy(match)
-    }
+    return promptNewDescription(match)
+  })
+}
 
+const promptNewDescription = (entry) => {
+  return inquirer.prompt([{
+    type: 'input',
+    name: 'entry',
+    message: "Type your new entry description:"
+  }]).then(async answers => {
+    await EntryService.edit(entry, entry.when, answers.entry)
+
+    l.blank()
     commandList()
   })
 }
