@@ -51,7 +51,7 @@ layout.then(() => {
 
     prog
     .command('edit')
-    .describe('Edit an entry')
+    .describe('Edit an entry description')
     .action(commandEdit)
 
   prog
