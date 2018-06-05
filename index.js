@@ -36,6 +36,7 @@ layout.then(() => {
 
   prog
     .command('list', '', { default: true })
+    .option('-f, --filter', 'Filter messages with a specific text in the description')
     .describe('List your entries')
     .action(commandList)
 

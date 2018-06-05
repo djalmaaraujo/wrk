@@ -9,7 +9,7 @@ const parseItemsTime = require('../utils/entry').parseItemsTime
 const noEntriesToDisplay = require('../utils/entry').noEntriesToDisplay
 
 module.exports = async (noparam, opts) => {
-  const entries = await EntryService.index({ orderByDay: true })
+  const entries = await EntryService.index({ orderByDay: true, filter: (noparam && noparam.filter) ? noparam.filter : null })
   const entryKeys = Object.keys(entries)
 
   if (entryKeys.length === 0) return noEntriesToDisplay()

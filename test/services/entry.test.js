@@ -22,6 +22,25 @@ const sampleEntries = [
   }
 ]
 
+const expectedEntries = {
+  '2017/12/09':
+    [{
+      when: 1512843286890,
+      description: 'Paired with Rodolfo to work on the CLI'
+    }],
+  '2017/12/19':
+    [{
+      when: 1513707029231,
+      description: 'Created a new feature for XYZ project'
+    }],
+  '2017/12/15':
+    [{
+      when: 1513353663070,
+      description: 'Paired with Paulo on Green story'
+    },
+    { when: 1513354558567, description: 'Went to the supermarket' }]
+}
+
 const now = new Date().getTime()
 const newSampleEntry = {
   when: now,
@@ -39,26 +58,14 @@ test.serial('Get list of entries', async t => {
 
 test.serial('Get list of entries ordered by day', async t => {
   const value = await EntryService.index({orderByDay: true})
-  const expectedEntries = {
-    '2017/12/09':
-      [{
-        when: 1512843286890,
-        description: 'Paired with Rodolfo to work on the CLI'
-      }],
-    '2017/12/19':
-      [{
-        when: 1513707029231,
-        description: 'Created a new feature for XYZ project'
-      }],
-    '2017/12/15':
-      [{
-        when: 1513353663070,
-        description: 'Paired with Paulo on Green story'
-      },
-      { when: 1513354558567, description: 'Went to the supermarket' }]
-  }
 
   t.deepEqual(expectedEntries, value, 'Entries ordenation is wrong')
+})
+
+test.serial('Get list of entries filtered by some value', async t => {
+  const value = await EntryService.index({orderByDay: true, filter: 'Rodolfo' })
+
+  t.deepEqual(Object.assign({}, { '2017/12/09': expectedEntries['2017/12/09'] }), value, 'Could not filter')
 })
 
 test.serial('Insert a new entry', async t => {

@@ -8,6 +8,10 @@ module.exports = {
   index(options = {}) {
     let entries = config.get('entries')
 
+    if (options.filter) {
+      entries = entries.filter((i, index) => i.description.indexOf(options.filter) > -1)
+    }
+
     if (options.orderByDay) {
       entries = groupBy(entries, (entry) => moment(new Date(entry.when)).format(DEFAULT_FORMAT))
     }
