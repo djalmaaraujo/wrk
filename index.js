@@ -60,10 +60,10 @@ layout.then(() => {
     .describe('Deletes all entries, be careful, there\'s NO trash bin here')
     .action(commandClean)
 
-  prog
-    .command('sync [WIP]')
-    .describe('Setup a Github Personal access token for syncing your entries with Github Gists API (Privately)')
-    .action(commandSync)
+  // prog
+  //   .command('sync [WIP]')
+  //   .describe('Setup a Github Personal access token for syncing your entries with Github Gists API (Privately)')
+  //   .action(commandSync)
 
     prog.parse(process.argv)
 })
