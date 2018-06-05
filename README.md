@@ -32,6 +32,8 @@ $ yarn global add wrklog
 
  - `wrk clean`: Deletes all entries. Be careful, there's NO trash can here
 
+ - `[WIP] wrk sync`: Sync all your entries with a private Github Gist.
+
 ## License
 
 MIT
