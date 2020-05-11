@@ -22,7 +22,7 @@ $ yarn global add wrklog
 ```
 
 ## Usage
- - `wrk list` or `wrk`: List or filter your entries
+ - `wrk list` or `wrk`: List or filter your entries (You can use `-f` to filter #hashtags for example)
 
  - `wrk add`: Add a new entry
 
